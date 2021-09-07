@@ -1,0 +1,2 @@
+rootProject.name = "TCD0301BasicAndroidApp"
+include ':app'
