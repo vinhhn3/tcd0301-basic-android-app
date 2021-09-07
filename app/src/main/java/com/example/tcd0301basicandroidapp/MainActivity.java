@@ -11,6 +11,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     EditText name, contact, dob;
     Button btnInsert, btnView, btnDelete, btnUpdate;
+    DBHelper db;
 
 
     @Override
@@ -27,19 +28,27 @@ public class MainActivity extends AppCompatActivity {
         btnUpdate = findViewById(R.id.btnUpdate);
         btnView = findViewById(R.id.btnView);
 
+        db = new DBHelper(this);
+
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String nameText = name.getText().toString();
                 String contactText = contact.getText().toString();
                 String dobText = dob.getText().toString();
+                if (!nameText.isEmpty() && !contactText.isEmpty() && !dobText.isEmpty()){
+                    Boolean insertedDataSuccessful = db.insertUserData(nameText, contactText, dobText);
+                    if (insertedDataSuccessful){
+                        Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this, "Inserted Failed !!!", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "Please enter all inputs !!!", Toast.LENGTH_LONG).show();
+                }
 
-                if (!nameText.isEmpty() && !contactText.isEmpty() & !dobText.isEmpty()){
-                    Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "Inserted Failed !!!", Toast.LENGTH_LONG).show();
-                }
             }
         });
     }
