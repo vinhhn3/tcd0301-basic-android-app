@@ -81,7 +81,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnInsert" />
 
-
     <Button
         android:id="@+id/btnView"
         android:layout_width="138dp"

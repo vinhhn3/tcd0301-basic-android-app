@@ -2,6 +2,7 @@ package com.example.tcd0301basicandroidapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,18 +38,40 @@ public class MainActivity extends AppCompatActivity {
                 String contactText = contact.getText().toString();
                 String dobText = dob.getText().toString();
                 if (!nameText.isEmpty() && !contactText.isEmpty() && !dobText.isEmpty()){
-                    Boolean insertedDataSuccessful = db.insertUserData(nameText, contactText, dobText);
+                    Boolean insertedDataSuccessful = db.insertUserData(nameText,
+                            contactText, dobText);
                     if (insertedDataSuccessful){
-                        Toast.makeText(MainActivity.this, "Inserted Successfully !!!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Inserted Successfully !!!",
+                                Toast.LENGTH_LONG
+                        ).show();
                     }
                     else{
-                        Toast.makeText(MainActivity.this, "Inserted Failed !!!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Inserted Failed !!!",
+                                Toast.LENGTH_LONG
+                        ).show();
                     }
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "Please enter all inputs !!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Please enter all inputs !!!",
+                            Toast.LENGTH_LONG
+                    ).show();
                 }
+            }
+        });
 
+        btnView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor cursor = db.getData();
+                if (cursor.getCount() == 0){
+                    Toast.makeText(MainActivity.this, "NO ENTRY", Toast.LENGTH_LONG
+                    ).show();
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "THERE ARE SOME ENTRIES",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
             }
         });
     }
