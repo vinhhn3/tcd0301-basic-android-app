@@ -91,43 +91,42 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String nameText = name.getText().toString();
 
-       btnDelete.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               String nameText = name.getText().toString();
+                Boolean result = db.deleteUserData(nameText);
 
-               Boolean result = db.deleteUserData(nameText);
+                if (result){
+                    Toast.makeText(MainActivity.this, "User deleted ...", Toast.LENGTH_LONG
+                    ).show();
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "User NOT FOUND ...", Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+        });
 
-               if (result){
-                   Toast.makeText(MainActivity.this, "User deleted ...", Toast.LENGTH_LONG
-                   ).show();
-               }
-               else{
-                   Toast.makeText(MainActivity.this, "User NOT FOUND ...", Toast.LENGTH_LONG
-                   ).show();
-               }
-           }
-       });
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String nameText = name.getText().toString();
+                String contactText = contact.getText().toString();
+                String dobText = dob.getText().toString();
 
-       btnUpdate.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               String nameText = name.getText().toString();
-               String contactText = contact.getText().toString();
-               String dobText = dob.getText().toString();
+                Boolean result = db.updateUserData(nameText, contactText, dobText);
 
-               Boolean result = db.updateUserData(nameText, contactText, dobText);
-
-               if (result){
-                   Toast.makeText(MainActivity.this, "User updated ...", Toast.LENGTH_LONG
-                   ).show();
-               }
-               else {
-                   Toast.makeText(MainActivity.this, "User NOT found ...", Toast.LENGTH_LONG
-                   ).show();
-               }
-           }
-       });
+                if (result){
+                    Toast.makeText(MainActivity.this, "User updated ...", Toast.LENGTH_LONG
+                    ).show();
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "User NOT found ...", Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+        });
     }
 }

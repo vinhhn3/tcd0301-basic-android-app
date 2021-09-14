@@ -71,7 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("dob", newDob);
 
         long result = db.update("Userdetails", contentValues, "name = ?",
-            new String[]{name});
+                new String[]{name});
 
         return result != -1;
     }
