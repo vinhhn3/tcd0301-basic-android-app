@@ -1,5 +1,6 @@
 package com.example.tcd0301basicandroidapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Inserted Successfully !!!",
                                 Toast.LENGTH_LONG
                         ).show();
+                        name.setText("");
+                        contact.setText("");
+                        dob.setText("");
                     }
                     else{
                         Toast.makeText(MainActivity.this, "Inserted Failed !!!",
@@ -68,9 +72,22 @@ public class MainActivity extends AppCompatActivity {
                     ).show();
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "THERE ARE SOME ENTRIES",
-                            Toast.LENGTH_LONG
-                    ).show();
+                    StringBuffer buffer = new StringBuffer();
+                    while (cursor.moveToNext()){
+                        buffer.append("Name:" + cursor.getString(0) + "\n");
+                        buffer.append("Contact:" + cursor.getString(1) + "\n");
+                        buffer.append("Date of Birth:" + cursor.getString(2) + "\n\n");
+                    }
+
+//                    Toast.makeText(MainActivity.this, buffer.toString(),
+//                            Toast.LENGTH_LONG
+//                    ).show();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setCancelable(true);
+                    builder.setTitle("User Entries");
+                    builder.setMessage(buffer.toString());
+                    builder.show();
                 }
             }
         });
