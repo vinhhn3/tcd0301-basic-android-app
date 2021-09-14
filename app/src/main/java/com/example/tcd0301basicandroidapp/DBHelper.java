@@ -54,4 +54,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return result != -1;
     }
+
+    public Boolean updateUserData(String name, String newContact, String newDob){
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Check if name exists in the database
+        Cursor cursor = db.rawQuery("SELECT * FROM Userdetails WHERE name = ?", new String[]{name});
+
+        // name does not exist in the database
+        if (cursor.getCount() == 0){
+            return false;
+        }
+
+        // if name exists, change the contact and Dob
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("contact", newContact);
+        contentValues.put("dob", newDob);
+
+        long result = db.update("Userdetails", contentValues, "name = ?",
+            new String[]{name});
+
+        return result != -1;
+    }
 }
