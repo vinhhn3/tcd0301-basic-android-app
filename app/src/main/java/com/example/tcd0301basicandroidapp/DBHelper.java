@@ -29,8 +29,14 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("name", name);
         contentValues.put("contact", contact);
         contentValues.put("dob", dob);
-        long result = db.insert("Userdetails", null, contentValues);
-        return result != 1;
+        long result = 1;
+        try{
+            result = db.insertOrThrow("Userdetails", null, contentValues);
+        }
+        catch (android.database.sqlite.SQLiteConstraintException ex){
+            return false;
+        }
+        return result != -1;
     }
 
     public Cursor getData(){
@@ -64,6 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.getCount() == 0){
             return false;
         }
+
 
         // if name exists, change the contact and Dob
         ContentValues contentValues = new ContentValues();
