@@ -34,8 +34,24 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getData(){
-        SQLiteDatabase DB = this.getReadableDatabase();
-        Cursor cursor = DB.rawQuery("SELECT * FROM Userdetails", null);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Userdetails", null);
         return cursor;
+    }
+
+    public Boolean deleteUserData(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Check if name exists in the database
+        Cursor cursor = db.rawQuery("SELECT * FROM Userdetails WHERE name = ?", new String[]{name});
+
+        // name does not exist in the database
+        if (cursor.getCount() == 0){
+            return false;
+        }
+
+        // remove User if exist
+        long result = db.delete("Userdetails", "name = ?", new String[]{name});
+
+        return result != -1;
     }
 }

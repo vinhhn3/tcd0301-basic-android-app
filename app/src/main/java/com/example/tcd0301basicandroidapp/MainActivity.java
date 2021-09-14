@@ -91,5 +91,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+       btnDelete.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               String nameText = name.getText().toString();
+
+               Boolean result = db.deleteUserData(nameText);
+
+               if (result){
+                   Toast.makeText(MainActivity.this, "User deleted ...", Toast.LENGTH_LONG
+                   ).show();
+               }
+               else{
+                   Toast.makeText(MainActivity.this, "User NOT FOUND ...", Toast.LENGTH_LONG
+                   ).show();
+               }
+           }
+       });
     }
 }
